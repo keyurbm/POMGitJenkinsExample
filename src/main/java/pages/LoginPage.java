@@ -1,12 +1,18 @@
 package pages;
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage {
-	WebDriver driver;
+import utilis.Constants;
+import utilis.ElementUtil;
 
-    // 1. Locators (Object Repository)
+public class LoginPage {
+	
+	private WebDriver driver;
+	private ElementUtil elementUtil;
+
+    // 1. By Locators (Object Repository)
     private By usernameField = By.id("user-name");
     private By passwordField = By.id("password");
     private By loginButton   = By.id("login-button");
@@ -14,7 +20,8 @@ public class LoginPage {
 
     // 2. Constructor to initialize driver
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
+        this.driver = driver; 
+        elementUtil = new ElementUtil(driver);
     }
 
     // 3. Page Actions (Methods)
@@ -39,5 +46,11 @@ public class LoginPage {
         this.enterUsername(user);
         this.enterPassword(pass);
         this.clickLogin();
+    }
+    
+    public String getLoginPageTitle() { 
+     	 return elementUtil.getLoginPageTitle(
+     			 Constants.DEFAULT_TIMEOUT, 
+     			 Constants.LOGIN_PAGE_TITLE);
     }
 }
